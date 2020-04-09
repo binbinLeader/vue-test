@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<style>
+  .active {
+    color: red;
+  }
+</style>
+<body>
+
+<div id="app">
+<!--  注意这里是有大括号的{}-->
+  <h2 v-bind:class="{active: false, line: true}">{{message}}</h2>
+  <h3 v-on:click="btnClick" v-bind:class="{active: isActive, line: isLine}">{{message}}</h3>
+<!--                          可以和普通的类同时存在, 并不冲突-->
+  <h3 v-on:click="btnClick" class="title" v-bind:class="{active: isActive, line: isLine}">{{message}}</h3>
+
+
+<!--  <h3 v-on:click="btnClick" class="title" v-bind:class="getClasses">{{message}} 测试计算属性</h3>-->
+  <h3 v-on:click="btnClick" class="title" v-bind:class="getClasses()">{{message}} 测试方法</h3>
+
+
+<!--  数组语法 这里可以是一个变量-->
+  <h2 class="title" :class="[active, line]">数组写法</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      isActive: true,
+      isLine: false,
+      active: 'aaaaa',
+      line: 'bbbbb'
+    },
+    methods: {
+      btnClick() {
+        this.isActive = !this.isActive
+      },
+      getClasses: function () {
+        return {active: this.isActive, line: this.isLine}
+      }
+    },
+    // TODO 回头再来补充
+    // computed: {
+    //   myClasses: {active: this.isActive, line: this.isLine}
+    // }
+  })
+
+</script>
+</body>
+</html>

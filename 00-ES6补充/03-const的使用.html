@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  // 1. 不能改变赋值
+  // const name = 'binbin';
+  // name = '1'
+
+  // 2. 在使用const时, 必须进行赋值
+  // const name;
+
+  // 3. 常量的含义是指对象不能修改, 但是可以改变对象内部的属性
+  const obj = {
+    name: '',
+    age: 10,
+    height: 11.1
+  }
+  obj.name = 'binbin' // 这里可以改是因为我们没有改变对象引用的地址值
+
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<style>
+  .active {
+    color: red;
+  }
+</style>
+<body>
+<div id="app">
+  <ul>
+<!--    这里我们使用 == 来进行判断-->
+    <li v-on:click="btnClick(index)" v-for="(m, index) in movies" v-bind:class="{active: index == onIndex}">{{index}} - {{m}}</li>
+  </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      movies: ['海王', '西游记', '太极张三丰'],
+      isActive: true,
+      onIndex: -1
+    },
+    methods: {
+      btnClick(index) {
+        this.onIndex = index
+      }
+    }
+  })
+
+</script>
+</body>
+</html>

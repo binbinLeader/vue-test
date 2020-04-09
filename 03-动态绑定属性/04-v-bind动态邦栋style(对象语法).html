@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+<!--  <h2 :style="{key(属性名): value(属性值)}">{{message}}</h2>-->
+                    这里的 50px 不被识别, 因为这里需要是一个变量
+<!--  <h2 :style="{fontSize: 50px}">{{message}}</h2>-->
+  <h2 :style="{fontSize: '50px'}">{{message}}</h2>
+  <h2 :style="{fontSize: finalSize}">{{message}}</h2>
+  <h2 :style="{fontSize: finalSizeNum + 'px', color: finalColor}">{{message}}</h2>
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      finalSize: '100px',
+      finalSizeNum: 200,
+      finalColor: 'red'
+    }
+  })
+
+</script>
+</body>
+</html>

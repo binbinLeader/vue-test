@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+<!--  mustache语法是在内容里, 不能在属性中使用, 这种方式是错误的 -->
+<!--  <img v-bind:src="{{imgUrl}}" alt="">-->
+
+  <img v-bind:src="imgUrl" alt="" style="width: 300px; height: 500px">
+  <a v-bind:href="aHref">百度一下</a>
+
+  <img :src="imgUrl" alt="" style="width: 300px; height: 500px">
+  <a :href="aHref">百度一下</a>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      imgUrl: 'https://lookimg.com/images/2020/04/03/P96slj.jpg',
+      aHref: 'http://www.baidu.com'
+    }
+  })
+
+</script>
+</body>
+</html>
