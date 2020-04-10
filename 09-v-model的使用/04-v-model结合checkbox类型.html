@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <label for="agreement">
+    <input type="checkbox" id="agreement" v-model="isAgree">同意协议
+  </label>
+  <h2>您选择的是: {{isAgree}}</h2>
+
+  disabled 还是比较重要的
+  <button :disabled="!isAgree">下一步</button>
+
+  <br>
+  <input type="checkbox" value="太极张三丰" v-model="movie">太极张三丰
+  <input type="checkbox" value="精武英雄" v-model="movie">精武英雄
+  <input type="checkbox" value="黄飞鸿" v-model="movie">黄飞鸿
+  您选择的电影是: {{movie}}
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      isAgree: false, // 单选框是boolean
+      movie: [] // 多选框是数组
+    }
+  })
+
+</script>
+</body>
+</html>

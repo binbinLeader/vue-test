@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <ul>
+    保证key和 item 一一对应, 这样在插入的时候, 原来绑定的会重复利用, C->C F(新加入) D->D
+    <li v-for="item in letters" :key="item">{{item}}</li>
+  </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      // 给数组中间添加元素: splice(第几个, 删除几个?, 新元素)
+      letters: ['A', 'B', 'C', 'D', 'E']
+
+      // diff 算法,
+      // 数组插入之后的渲染过程
+    }
+  })
+
+</script>
+</body>
+</html>

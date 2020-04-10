@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  v-model的双向绑定
+  <input type="text" v-model="message"> {{message}}
+  :value的双向绑定
+  <input type="text" v-bind:value="message" v-on:input="valueChange"> {{message}}
+
+  v-on:input 语法糖 @input
+  3. 还有第三种写法
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    methods: {
+      valueChange(event) {
+        console.log('valueChange');
+        this.message = event.target.value
+      }
+    }
+  })
+
+</script>
+</body>
+</html>

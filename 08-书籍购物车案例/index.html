@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+  <div v-if="menus.length">
+    <table>
+      <thead>
+      <tr>
+        <th></th>
+        <th>饭名</th>
+        <th>吃饭日期</th>
+        <th>价格</th>
+        <th>购买数量</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+
+        <tr v-for="(item, index) in menus">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.date}}</td>
+          <!--        <td>{{getFinalPrice(item.price)}}</td>-->
+          <td>{{item.price | showPrice}}</td>
+          <td>
+            <button @click="decrement(index)" v-bind:disabled="item.count <= 1">-</button>
+            {{item.count}}
+            <button @click="increment(index)">+</button>
+          </td>
+          <td>
+            <button @click="removeMenu(index)">移除</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>总价格: {{totalPrice |showPrice}}</h3>
+  </div>
+  <div v-else>
+    购物车为空
+  </div>
+</div>
+
+<script src="../js/vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

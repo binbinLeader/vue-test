@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  如果我们在有输入内容的情况下切换了类型, 我们会发现文字依然显示在之前的输入框中,
+  但是按道理讲, 我们应该切换到另外一个input 元素中, 而另一个input元素中, 我们并没有输入内容
+
+  解答:
+  因为vue在进行dom渲染时, 出于性能考虑, 会尽可能的服用已经存在的元素, 而不是重新创建新得元素
+
+  解决方案: 如果我们不希望VUE出现类似重复利用的问题, 可以给对应的input添加key, 而且我们需要保证key的不同
+  <span>
+    <label for="username">用户账号</label>
+    <input type="text" id="username" placeholder="用户账号">
+  </span>
+
+  <span>
+    <label for="email">用户邮箱</label>
+    <input type="text" id="email" placeholder="用户邮箱">
+  </span>
+  <button>切换类型</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+
+    }
+  })
+
+</script>
+</body>
+</html>

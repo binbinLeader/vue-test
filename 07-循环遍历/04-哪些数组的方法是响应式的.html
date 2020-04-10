@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <ul>
+    <li v-for="item in letters">{{item}}</li>
+  </ul>
+  并不是所有改变数组的方法, 页面就一定会响应
+  this.letters[0] = '这种方式不会响应'
+  正确的做法: splice(0, 1, '这种方式不会响应')
+
+  <button>1. push 是可以添加多个的</button>
+  <button>2. pop 从最后删除</button>
+  <button>3. shift 删除数组中的第一个元素</button>
+  <button>4. unshift 在数组最前面添加元素</button>
+  splice(start) 从哪个位置开始?
+  删除元素: 第二个参数传入你要删除几个元素? 如果不传的话, 会删除到最后一个
+  splice(start, delnum)
+  替换元素: 第二个参数表示要替换几个元素, 后面是用来替换前面的元素
+  splice(start, delnum, new)
+  插入元素: 第二个参数传入0, 后面是添加的元素
+  splice(start, 0, new)
+  <button>5. splice 删除元素, 插入元素, 替换元素</button>
+
+  <button>6. sort 排序</button>
+
+  <button>7. reverse 反转</button>
+
+  // 这个是vue内部实现的方式
+  Vue.set(要修改的对象, 索引值, 修改后的值)
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      letters: ['A', 'B', 'C', 'D', 'E']
+    }
+  })
+
+  // 可变参数
+  function sum(...num) {
+    console.log(num);
+  }
+</script>
+</body>
+</html>
