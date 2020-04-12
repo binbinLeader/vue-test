@@ -79,7 +79,17 @@ const app = new Vue({
 // 编程范式: 面向对象编程(第一公民: 对象)/ 函数式编程(第一公民: 函数) 好处: 可以进行链式编程
 const nums = [1,22,3,4333,5,622]
 // filter/map/reduce 函数式编程做法:
-
+nums.filter(function (n) {
+  return n < 100
+}).map(function (n) {
+  return n * 2
+}).reduce(function (preValue, n) {
+  return preValue + n
+}, 0)
+let newNums = []
+// todo 箭头写法不会
+newNums = nums.filter(n > n < 100).map(n > n * 2).reduce((pre, n) > pre + n)
+console.log('链式编程：', newNums);
 // 1. filter函数的使用:
 // filter 中的回调函数有一个要求, 必须返回一个boolean值
 // true: 当返回true时, 函数内部会自动将这次回调的n加入到新的数组中

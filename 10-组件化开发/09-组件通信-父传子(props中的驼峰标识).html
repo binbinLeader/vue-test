@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  v-bind不支持驼峰, 可以将大写变成-
+  <cpn :c-info="info" :child-my-message="myMessage"></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <h2>{{cInfo}}</h2>
+    {{childMyMessage}}
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn',
+    props: {
+      cInfo: {
+        type: Object,
+        default() {
+          return {}
+        }
+      },
+      childMyMessage: {
+        message: 'child-你好'
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      info: {
+        name: 'binbin',
+        age: 18
+      },
+      myMessage: 'nihk'
+    },
+    components: {
+      cpn
+    }
+  })
+</script>
+</body>
+</html>

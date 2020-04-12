@@ -7,15 +7,23 @@
 <body>
 <div id="app">
   1. 事件调用的方法没有参数
+  <br>
   <button @click="btnClick()">按钮1</button>
+  <br>
 
   2. 事件定义的时候, 如果省略了小括号, 但是方法本身是需要一个参数的, 这个时候
   vue会默认将浏览器生成的event时间对象作为参数传入到方法中
-  <button>按钮2</button>
+  <br>
+  <button @click="btnClick2">按钮2</button>
+  <br>
 
   3. 在方法定义时, 我们需要event对象, 同时又需要其他参数
   在调用的时候, 如何手动的获取到浏览器的event对象? : $event
-  <button>按钮3</button>
+  <br>
+  <button @click="btnClick3('板板')">按钮3, 仅传入第一个参数</button>
+  <br>
+  <button @click="btnClick3('板板', $event)">按钮3, $event</button>
+  <br>
 </div>
 
 <script src="../js/vue.js"></script>
@@ -24,6 +32,18 @@
     el: '#app',
     data: {
       message: '你好啊'
+    },
+    methods: {
+      btnClick() {
+        console.log('btnClick按钮点击了')
+      },
+      btnClick2(event) {
+        console.log('btnClick2按钮点击了，未传入的参数是：', event);
+      },
+      btnClick3(name, event) {
+        console.log('name = ', name);
+        console.log('event = ', event);
+      }
     }
   })
 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn @item-click="itemClick"></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <button @Click="btnCategoryClick(item)" v-for="item in categories">{{item.name}}</button>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn',
+    data() {
+      return {
+        categories: [
+          {id: 'aaa', name: '手机数码'},
+          {id: 'bbb', name: '电脑办公'}
+        ]
+      }
+    },
+    methods: {
+      btnCategoryClick(item) {
+        console.log('子组件中点击了', item)
+        // 子组件传父组件的工具是 $emit('父组件点击名称', 传递的参数)
+        this.$emit('item-click', item)
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+
+    },
+    components: {
+      cpn
+    },
+    methods: {
+      itemClick(item) {
+        console.log('btnCategoryClick 通过$emit()传过来了：', item);
+      }
+    }
+  })
+</script>
+</body>
+</html>

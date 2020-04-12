@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  1.修饰符： lazy
+  <br>
+  正常情况：实时绑定 <br>
+  <input type="text" v-model="message">{{message}}
+  <br>
+  回车的时候，再进行绑定 <br>
+  <input type="text" v-model.lazy="message">{{message}}
+  <br>
+  2. 修饰符： number
+  <br>
+  只希望用户输入数字， 但是v-model会自动转换为string类型
+  <br>
+  <input type="text" v-model="age">
+  {{age}}-{{typeof age}}
+  <br>
+  <input type="text" v-model.number="age">
+  {{age}}-{{typeof age}}
+
+  <br>
+  3. 修饰符：trim
+  <br>
+  去除空格
+  <br>
+  <input type="text" v-model="trimTest">{{trimTest}}
+  <br>
+  <input type="text" v-model.trim="trimTest1">{{trimTest1}}
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好',
+      age: '',
+      trimTest: '',
+      trimTest1: ''
+    }
+  })
+</script>
+</body>
+</html>

@@ -18,7 +18,18 @@
   <input type="checkbox" value="太极张三丰" v-model="movie">太极张三丰
   <input type="checkbox" value="精武英雄" v-model="movie">精武英雄
   <input type="checkbox" value="黄飞鸿" v-model="movie">黄飞鸿
+  <br>
   您选择的电影是: {{movie}}
+
+  <br>
+  使用值绑定来初始化checkbox
+  <br>
+  <label v-for="item in initMovies" :for="item">
+    <input type="checkbox" :value="item" v-model="movie" :id="item">{{item}}
+  </label>
+  <br>
+  您选择的电影是: {{movie}}
+
 </div>
 
 <script src="../js/vue.js"></script>
@@ -28,7 +39,8 @@
     data: {
       message: '你好啊',
       isAgree: false, // 单选框是boolean
-      movie: [] // 多选框是数组
+      movie: [], // 多选框是数组
+      initMovies: ['板板','陈晨','豆豆','彬彬']
     }
   })
 

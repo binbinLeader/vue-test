@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+1. 项目组长
+2. 小红
+3. 小明
+
+各自有各自的js
+
+
+模块化原来是这么做的呀
+var moduleA = (function() {
+  var obj = {};
+  var flag = false;
+  obj.flag = flag;
+  return obj
+})()
+
+// 导出
+module.exports = {
+  flag: true,
+  test(a, b) {
+    return a + b
+  }
+}
+
+// 导入
+let { flag, test } = require('moduleA');
+// 等同于
+let _mA = require('moduleA);
+let flag = _mA.flag
+
+</body>
+</html>

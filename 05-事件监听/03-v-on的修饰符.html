@@ -6,24 +6,34 @@
 </head>
 <body>
 <div id="app">
-  1. .stop修饰符的使用
-  <div>
+  v-on 的一些修饰符
+  <br>
+  1. .stop修饰符的使用, 可以阻止冒泡点击
+  <div @click="divClick">
     点击文字
-    <button></button>
+    <button v-on:click.stop="btnClick">点击按钮</button>
   </div>
 
+  <br>
   2. .prevent修饰符的使用
   <form action="baidu">
-    <input type="submit" value="提交">
+    <input type="submit" value="提交" @click.prevent="submitClick">
   </form>
 
   3. 监听某个键盘的键帽
-  <input type="text" @keyup.enter="">
-
+  <br>
+  <input type="text" @keyup="keyClick">键盘弹起的时候
+  <br>
+  <input type="text" @keyup.enter="keyEnterClick">回车键弹起的时候
+  <br>
   4. 监听自定义组件
-
+<!--  <cpn @click="cpnClick"></cpn> 这种情况是监听不到的-->
+<!--  <br>-->
+<!--  <cpn @click.native></cpn> 这种情况可以监听组件-->
+  <br>
   5. .once修饰符, 只是第一次有反应, 之后就没有反应了
-
+  <br>
+  <button @click.once="onceClick">once按钮</button>
 </div>
 
 <script src="../js/vue.js"></script>
@@ -32,6 +42,26 @@
     el: '#app',
     data: {
       message: '你好啊'
+    },
+    methods: {
+      divClick() {
+        console.log('divClick执行了')
+      },
+      btnClick() {
+        console.log('btnClick执行了')
+      },
+      submitClick() {
+        console.log('submitClick执行了')
+      },
+      keyClick() {
+        console.log('keyClick弹起了')
+      },
+      keyEnterClick() {
+        console.log('keyEnterClick 弹起了')
+      },
+      onceClick() {
+        console.log('onceClick 被点击了')
+      }
     }
   })
 

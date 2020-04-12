@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <cpn>
+  </cpn>
+
+  <button>调用子方法</button>
+  <button>拿到子属性</button>
+</div>
+
+<template id="cpn">
+  <div>
+    我是子组件
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好'
+    },
+    methods: {
+      btnClick() {
+        // 1. $children
+        console.log(this.$children)
+        // 2. $refs => 对象类型， 默认是一个空的对象 ref='aaa'
+      }
+    },
+    components: {
+      cpn: {
+        template: '#cpn',
+        methods: {
+          showMessage() {
+            console.log('子组件的方法: showMessage')
+          }
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>

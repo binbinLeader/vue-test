@@ -7,9 +7,26 @@
 <body>
 <div id="app">
   1. 选择一个
-  <select name="type" id="typeid">
-    <option value=""></option>
+  <br>
+  <select name="type" id="typeid" v-model="type">
+    <option value="板板">板板</option>
+    <option value="彬彬">彬彬</option>
+    <option value="陈晨">陈晨</option>
+    <option value="豆豆">豆豆</option>
   </select>
+  <h2>您选择的人物是：{{type}}</h2>
+  <br>
+
+  2. 选择多个
+  <br>
+  <select name="mySelect" v-model="mySelects" multiple>
+    <option value="板板">板板</option>
+    <option value="彬彬">彬彬</option>
+    <option value="陈晨">陈晨</option>
+    <option value="豆豆">豆豆</option>
+  </select>
+  <h2>您选择的人物是：{{mySelects}}</h2>
+  <br>
 </div>
 
 <script src="../js/vue.js"></script>
@@ -17,7 +34,9 @@
   const app = new Vue({
     el: '#app',
     data: {
-      message: '你好啊'
+      message: '你好啊',
+      type: '彬彬',
+      mySelects: []
     }
   })
 

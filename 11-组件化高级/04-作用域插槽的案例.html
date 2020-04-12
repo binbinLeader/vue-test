@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  1. 目的是获取子组件中的movies
+  <template slot-scope="slot">
+    <span v-for="item in slot.movies">{{item}}</span>
+    <span>{{slot.movies.join('-')}}</span>
+  </template>
+</div>
+
+<template>
+  <div>
+    这个 :data 是随便起的，
+    <slot :movies="movies">
+      <ul>
+        <li></li>
+      </ul>
+    </slot>
+  </div>
+
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好'
+    },
+    components: {
+      cpn: {
+        template: '#cpn',
+        data() {
+          return {
+            movies: ['太极张三丰', '海王']
+          }
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>

@@ -10,6 +10,7 @@
     保证key和 item 一一对应, 这样在插入的时候, 原来绑定的会重复利用, C->C F(新加入) D->D
     <li v-for="item in letters" :key="item">{{item}}</li>
   </ul>
+  <button @click="spliceElement()">插入一个元素</button>
 </div>
 
 <script src="../js/vue.js"></script>
@@ -22,6 +23,11 @@
 
       // diff 算法,
       // 数组插入之后的渲染过程
+    },
+    methods: {
+      spliceElement() {
+        this.letters.splice(2, 0, '插入')
+      }
     }
   })
 
