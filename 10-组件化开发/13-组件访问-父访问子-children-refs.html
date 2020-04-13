@@ -6,11 +6,10 @@
 </head>
 <body>
 <div id="app">
-  <cpn>
-  </cpn>
+  <cpn ref="aaa"></cpn>
 
-  <button>调用子方法</button>
-  <button>拿到子属性</button>
+  <button @click="btnClick" >调用子方法</button>
+  <button @click="btnClickGetChildProp">拿到子属性</button>
 </div>
 
 <template id="cpn">
@@ -29,8 +28,14 @@
     methods: {
       btnClick() {
         // 1. $children
-        console.log(this.$children)
-        // 2. $refs => 对象类型， 默认是一个空的对象 ref='aaa'
+        // console.log(this.$children[0].showMessage())
+        // 2. $refs => 对象类型， 默认是一个空的对象 ref='aaa' 这个需要写到引用的组件上
+        console.log(this.$refs.aaa.showMessage());
+        console.log(this.$refs.aaa.cmessage)
+      },
+      btnClickGetChildProp() {
+        // console.log(this.$children[0].cmessage)
+        console.log(this.$refs.aaa.cmessage)
       }
     },
     components: {
@@ -39,6 +44,11 @@
         methods: {
           showMessage() {
             console.log('子组件的方法: showMessage')
+          }
+        },
+        data() {
+          return {
+            cmessage: '我是子组件的属性'
           }
         }
       }
