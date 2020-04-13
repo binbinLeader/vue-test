@@ -7,20 +7,27 @@
 <body>
 <div id="app">
   1. 目的是获取子组件中的movies
-  <template slot-scope="slot">
-    <span v-for="item in slot.movies">{{item}}</span>
-    <span>{{slot.movies.join('-')}}</span>
-  </template>
+  <cpn>
+    <template slot-scope="slot">
+      <span v-for="item in slot.movies">{{item + '-'}}</span>
+<!--      TODO 不知道为啥, 我在这里使用join就不行-->
+<!--      <span>{{slot.movies.join(' - ')}}</span>-->
+    </template>
+  </cpn>
+
+<!--  <cpn></cpn>-->
 </div>
 
-<template>
+<template id="cpn">
   <div>
     这个 :data 是随便起的，
     <slot :movies="movies">
-      <ul>
-        <li></li>
-      </ul>
+<!--      <ul>-->
+<!--        <li v-for="item in movies">{{item}}</li>-->
+<!--      </ul>-->
+<!--      <span>{{movies.join(' * ')}}</span>-->
     </slot>
+    <slot>你好啊</slot>
   </div>
 
 </template>
