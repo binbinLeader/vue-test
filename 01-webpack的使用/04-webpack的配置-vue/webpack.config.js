@@ -19,11 +19,8 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              // 当加载的图片小于limit时, 会将图片编译成base64字符串形式.
-              // 当加载的图片大于limit时, 需要使用file-loader模块进行加载.
+              // 当加载的图片小于limit时,
               limit: 8192,
-              // 不需要配置file-loader
-
               // 这里使用[], 会当成变量, 取这里的名字
               // img: 文件要打包到的文件夹
               // name: 获取图片原来的名字, 放在该位置
@@ -48,4 +45,15 @@ module.exports = {
       }
     ]
   },
+  // resolve: {
+  //   alias: {
+  //     // 别名
+  //     'vue$': 'vue/dist/vue.esm.js'
+  //   }
+  // }
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js' // 用 webpack 1 时需用 'vue/dist/vue.common.js'
+    }
+  }
 }

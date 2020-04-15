@@ -1,2 +1,2 @@
 export const name = 'binbin';
-export const age = 18
+export const age = 18;
