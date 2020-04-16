@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   entry: './src/main.js',
@@ -56,5 +57,11 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js' // 用 webpack 1 时需用 'vue/dist/vue.common.js'
     }
-  }
+  },
+  // 增加版权插件, 需要 1. 引入webpack require('webpack')
+  // 2. 使用 webpack.BannerPlugin()
+  // plugins使用的是数组的形式
+  plugins: [
+    new webpack.BannerPlugin('最终版权归彬彬所有')
+  ]
 }

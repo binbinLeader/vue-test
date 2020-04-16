@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <h2>{{message}}</h2>
+
+<h2>打包 htmlwebpackPlugin</h2>
+  <br>
+  安装 <br>
+  npm install html-webpack-plugin --save-dev
+  <br>
+  使用 <br>
+  require('html-webpack-plugin')
+  <br>
+  new 一个就可以了
+  <br>
+    new htmlWebpackPlugin({
+      template: 'index.html'
+    })
+  <br>
+
+  <h2>uglifyjs使用</h2>
+  npm install uglifyjs-webpack-plugin@1.1.1 --save-dev
+  <br>
+  1. 引入 <br>
+  2. 在plugin中 new uglifyjsWebpackPlugin()
+  <br>
+
+  <h2>搭建本地服务器</h2>
+  npm install webpack-dev-server@2.9.3 --save-dev
+  <br>
+  配置: <br>
+  devServer: {
+    contentBase: './dist'
+    inline: true // 是否需要实时监听
+    port: 端口号 // 默认8080
+    historyApiFallback: 在SPA页面中,
+  }
+  <br>
+  启动: <br>
+  webpack-dev-server <br>
+  ./node_modules/.bin/webpack-dev-server
+
+  配置一个
+</div>
+
+<script src="./dist/bundle.js"></script>
+</body>
+</html>
