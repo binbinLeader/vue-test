@@ -2,8 +2,12 @@
   <div id="app">
     <p>-----------这里是app-------------</p>
     <p>这里是a模块中的内容</p>
-    <p>{{}}</p>
-
+    <p>{{this.$store.state.a.name}}</p>
+    <button @click="updateName">修改名字</button>
+    <p>{{this.$store.getters.fullName}}</p>
+    <p>{{this.$store.getters.fullName2}}</p>
+    <p>{{this.$store.getters.fullName3}}</p>
+    <button @click="asyncUpdateName">异步修改名字</button>
 
     <p>这里是info, 用来测试info内容是否是响应式的</p>
     <p>{{this.$store.state.info}}</p>
@@ -90,6 +94,12 @@ export default {
         .then(res => {
           console.log(res)
         })
+    },
+    updateName() {
+      this.$store.commit('updateName', '陈晨')
+    },
+    asyncUpdateName() {
+      this.$store.dispatch('aUpdateName')
     }
   },
   computed: {
