@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  // 这里需要传一个可迭代的对象 iterator
+  Promise.all([
+    // new Promise((resolve, reject) => {
+    //   $.ajax({
+    //     url: 'url1',
+    //     success: function (data) {
+    //       resolve()
+    //     }
+    //   })
+    // }),
+    // new Promise((resolve, reject) => {
+    //   $.ajax({
+    //     url: 'url2',
+    //     success: function (data) {
+    //       resolve()
+    //     }
+    //   })
+    // })
+
+      // 使用setTimeout进行模拟
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        // resolve('结果1')
+        resolve({name: 'binbin', age: 18})
+      }, 2000)
+    }),
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({name: 'nannan', age: 18})
+      }, 1000)
+    })
+  ]).then(results => {
+    // 这里打印两个结果?
+    console.log(results);
+  })
+</script>
+</body>
+</html>
