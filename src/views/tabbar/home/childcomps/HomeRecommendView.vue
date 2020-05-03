@@ -1,10 +1,23 @@
 <template>
-  
+  <div class="recommend">
+    <div class="recommend-item" v-for="item in recommends">
+      <a :href="item.link">
+        <img :src="item.image" alt="">
+      </a>
+      <p>{{item.title}}</p>
+    </div>
+  </div>
 </template>
 
 <script>
   export default {
-    name: "HomeRecommendView"
+    name: "HomeRecommendView",
+    props: {
+      recommends: {
+        type: Array,
+        default: []
+      }
+    }
   }
 </script>
 
@@ -24,7 +37,7 @@
   }
 
   .recommend-item {
-    /*todo 这个是什么意思? */
+    /*todo 这个是什么意思? 可以让他们均等分 */
     flex: 1;
   }
 
