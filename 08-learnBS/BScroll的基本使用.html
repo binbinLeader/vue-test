@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <style>
-    .content {
+    .wrapper {
       height: 200px;
       background-color: red;
       overflow: hidden;
@@ -12,7 +12,7 @@
   </style>
 </head>
 <body>
-  <div class="content">
+  <div class="wrapper">
     <ul>
       <li>数据列表1</li>
       <li>数据列表2</li>
@@ -118,7 +118,7 @@
   </div>
 <script src="./bscroll.js"></script>
 <script>
-  const bscroll = new BScroll(document.querySelector('.content'),{
+  const bscroll = new BScroll(document.querySelector('.wrapper'),{
 
   })
 </script>
