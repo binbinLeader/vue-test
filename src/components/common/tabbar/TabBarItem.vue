@@ -51,14 +51,13 @@
     /*文字居中*/
     text-align: center;
     /*tab-bar的高度一般都是49px*/
-    /*height: 49px;*/
-    height: 70px;
+    height: 49px;
     font-size: 14px;
   }
 
   .tab-bar-item img {
-    width: 50px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     /*图片上方留一些空间*/
     margin-top: 3px;
     /*去除图片最下面多出来的3px个像素*/
