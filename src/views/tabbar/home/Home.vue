@@ -4,14 +4,16 @@
       <div slot="center">购物街</div>
     </nav-bar>
 
-    <home-swiper :banners="banners"/>
+    <scroll class="content">
+      <home-swiper :banners="banners"/>
 
-    <home-recommend-view :recommends="recommends"/>
-    <feature-view/>
-    <tab-control class="tab-control"
-                 :titles="['流行','新款','精选']"
-                 @tabClick="tabClick"></tab-control>
-    <goods-list :goods="showGoods"/>
+      <home-recommend-view :recommends="recommends"/>
+      <feature-view/>
+      <tab-control class="tab-control"
+                   :titles="['流行','新款','精选']"
+                   @tabClick="tabClick"></tab-control>
+      <goods-list :goods="showGoods"/>
+    </scroll>
 <!--    ul>li{列表$}*100-->
     <ul>
       <li>列表1</li>
@@ -123,10 +125,10 @@
   import HomeRecommendView from "./childcomps/HomeRecommendView";
   import FeatureView from "./childcomps/FeatureView";
 
+  import NavBar from "components/common/navbar/NavBar";
   import TabControl from "components/content/tabControl/TabControl";
   import GoodsList from "components/content/goods/GoodsList";
-
-  import NavBar from "components/common/navbar/NavBar";
+  import Scroll from "components/common/scroll/Scroll";
 
   import {
     getHomeMulitData,
@@ -141,7 +143,8 @@
       NavBar,
       FeatureView,
       TabControl,
-      GoodsList
+      GoodsList,
+      Scroll
     },
     data() {
       return {
@@ -224,4 +227,6 @@
     top: 44px;
     z-index: 9;
   }
+
+
 </style>

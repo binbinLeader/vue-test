@@ -66,17 +66,24 @@
       }
     },
     mounted() {
-      console.log(this.$refs.mywrapper);
-      this.scroll = new BScroll(this.$refs.mywrapper, {
-
-      })
+      this.scroll = new BScroll('.wrapper')
+      console.log(this.scroll);
+      // console.log(this.$refs.mywrapper);
+      // this.scroll = new BScroll(document.querySelector('.wrapper'), {
+      //   probeType: 3
+      // })
+      //
+      // this.scroll.on('scroll', (position) => {
+      //   console.log(position);
+      // })
     }
   }
 </script>
 
 <style scoped>
-  .content {
+  .wrapper {
     height: 100px;
     background-color: red;
+    overflow:hidden;
   }
 </style>
