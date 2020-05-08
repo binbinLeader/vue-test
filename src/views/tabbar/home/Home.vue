@@ -8,7 +8,8 @@
             ref="scroll"
             :probe-type="3"
             @scroll="getScrollPosition"
-            :pull-up-load="true" >
+            :pull-up-load="true"
+            @pullingUp="loadMore">
       <home-swiper :banners="banners"/>
       <home-recommend-view :recommends="recommends"/>
       <feature-view/>
@@ -79,7 +80,6 @@
     },
     methods: {
       tabClick(index) {
-        console.log(index, 'tabClick点击了');
         switch (index) {
           case 0:
             this.currentType = 'pop'
@@ -98,6 +98,13 @@
       getScrollPosition(position) {
         this.isShowBackTop = (- position.y) > 1000
       },
+      loadMore() {
+        this.getHomeGoods(this.currentType)
+
+        // 当加载到新的图片列表时, 可能会导致scroll计算错误, 导致无法完成拉到底部
+        // 增加此方法, 重新计算即可
+        this.$refs.scroll.refresh()
+      },
 
       /**
        * 网络请求
@@ -113,6 +120,8 @@
         getHomeGoods(type, page).then(res => {
           this.goods[type].list.push(...res.data.list)
           this.goods[type].page += 1
+
+          this.$refs.scroll.finishPullUp()
         })
       }
     }
