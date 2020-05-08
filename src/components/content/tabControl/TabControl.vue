@@ -19,7 +19,10 @@
     props: {
       titles: {
         type: Array,
-        default: []
+        // 当default返回一个对象或者数组时, 需要使用函数形式
+        default() {
+          return []
+        }
       }
     },
     methods: {
