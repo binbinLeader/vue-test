@@ -158,7 +158,11 @@
         2. this.$bus.$emit('事件名称', 参数)
         3. this.$bus.$on('事件名称', 回调函数)
 
-    对于refresh非常频繁的问题, 进行防抖操作
+    问题一. refresh找不到的问题
+        第一: 在Scroll.vue中, 调用this.scroll的方法冲钱, 判断this.scroll对象是否有值
+        第二: 在mounted生命周期函数中使用this.$refs.scroll, 而不是在created中
+
+    问题二. 对于refresh非常频繁的问题, 进行防抖操作
         防抖debounce/节流throttle
         防抖函数起作用的过程:
             如果我们直接执行refresh, 那么refresh函数会被执行30次.
@@ -177,6 +181,28 @@
                 }
             ```
 
+    八. 下拉加载更多
+
+    九. TabControl的吸顶效果
+        9.1 获取到tab-control 的 offsetTop值
+            必须知道滚动到多少时, 开始有吸顶效果, 这个时候就需要获取tabControl的offsetTop
+            但是, 如果直接在mounted中获取tabControl的offsetTop, 那么值是不正确的,
+            如何获取正确的值了?
+                监听HomeSwiper中img的加载完成
+                加载完成后, 发出时间, 在Home.vue中, 获取正确的值.
+                补充:
+                    为了不让HomeSwiper多次发出事件, 可以使用isLoad的变量进行状态的记录
+                注意: 这里不进行多次调用和debounce的区别
+        9.2 监听滚动, 动态改变tabControl的样式
+            问题: 动态改变tabControl的样式时, 会出现两个问题:
+                问题一: 下面的商品内容, 会突然上衣
+                问题二: tabControl虽然设置了fixed, 但是也随着Better-Scroll一起滚出去了
+            其他方案来解决停留问题:
+                在最上面, 多复制了一份PlaceHolderTabControl组件对象, 利用它来实现停留效果
+                当用户滚动到一定位置时, PlaceHolderTabControl显示出来
+                当用户滚到没有达到一定位置时, PlaceHolderTabControl隐藏起来
+
+十. 让Home保持原来的状态
 
 
 
