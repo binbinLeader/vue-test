@@ -73,7 +73,8 @@
         currentType: 'pop',
         isShowBackTop: false,
         tabControlOffsetTop: 0,
-        tabControlIsFixed: false
+        tabControlIsFixed: false,
+        saveY: 0
       }
     },
     computed: {
@@ -89,6 +90,14 @@
       this.getHomeGoods('pop')
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
+    },
+    activated() {
+      this.$refs.scroll.scrollTo(0, this.saveY, 0)
+      // 在这里可能不能滚，需要刷新一下
+      this.$refs.scroll.refresh()
+    },
+    deactivated() {
+      this.saveY = this.$refs.scroll.getScrollY()
     },
     mounted() {
       // 这里不能写小括号， 因为我们需要传的是一个方法， 如果我们不写小括号， 就是传的一个方法
