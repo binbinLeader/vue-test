@@ -1,13 +1,11 @@
 <template>
-  <div class="goods-item">
-    <a :href="goodsItem.link">
+  <div class="goods-item" @click="goToDetail">
       <img :src="goodsItem.show.img" alt="" @load="imgLoad">
       <div class="goods-info">
         <p>{{goodsItem.title}}</p>
         <span class="price">{{goodsItem.price}}</span>
         <span class="collect">{{goodsItem.cfav}}</span>
       </div>
-    </a>
   </div>
 </template>
 
@@ -25,6 +23,15 @@
     methods : {
       imgLoad() {
         this.$bus.$emit('goodsItemImgLoad')
+      },
+      goToDetail() {
+        this.$router.push('/detail/' + this.goodsItem.iid)
+        // this.$router.push({
+        //   path: '/detail',
+        //   query: {
+        //     id: this.goodsItem.iid
+        //   }
+        // })
       }
     }
   }

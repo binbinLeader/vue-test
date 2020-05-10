@@ -5,6 +5,7 @@ const Home = () => import('../views/tabbar/home/Home')
 const Category = () => import('../views/tabbar/category/Category')
 const Buycart = () => import('../views/tabbar/buycart/Buycart')
 const Profile = () => import('../views/tabbar/profile/Profile')
+const Detail = () => import('views/detail/Detail')
 
 // 1. 注册
 Vue.use(VueRouter)
@@ -20,16 +21,20 @@ const routes = [
     component: Home
   },
   {
-    path: '/Category',
+    path: '/category',
     component: Category
-  },,
+  },
   {
-    path: '/Buycart',
+    path: '/buycart',
     component: Buycart
-  },,
+  },
   {
-    path: '/Profile',
+    path: '/profile',
     component: Profile
+  },
+  {
+    path: '/detail/:id',
+    component: Detail
   },
 ]
 const router = new VueRouter({
