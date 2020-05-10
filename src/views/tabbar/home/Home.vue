@@ -28,11 +28,14 @@
   import HomeRecommendView from "./childcomps/HomeRecommendView";
   import FeatureView from "./childcomps/FeatureView";
 
-  import NavBar from "components/common/navbar/NavBar";
   import TabControl from "components/content/tabControl/TabControl";
   import GoodsList from "components/content/goods/GoodsList";
   import Scroll from "components/common/scroll/Scroll";
   import BackTop from "components/content/backTop/BackTop";
+
+  import NavBar from "components/common/navbar/NavBar";
+
+  import {debounce} from "common/utils";
 
   import {
     getHomeMulitData,
@@ -77,6 +80,15 @@
       this.getHomeGoods('pop')
       this.getHomeGoods('new')
       this.getHomeGoods('sell')
+    },
+    mounted() {
+      // 这里不能写小括号， 因为我们需要传的是一个方法， 如果我们不写小括号， 就是传的一个方法
+      // 如果写了小括号， 传递的就是该方法的返回值了， 如果方法没有返回值， 那么就是undefind了
+      const refresh = debounce(this.$refs.scroll.refresh, 200)
+
+      this.$bus.$on('goodsItemImgLoad', () => {
+        refresh()
+      })
     },
     methods: {
       tabClick(index) {

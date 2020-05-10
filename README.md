@@ -159,7 +159,7 @@
         3. this.$bus.$on('事件名称', 回调函数)
 
     问题一. refresh找不到的问题
-        第一: 在Scroll.vue中, 调用this.scroll的方法冲钱, 判断this.scroll对象是否有值
+        第一: 在Scroll.vue中, 调用this.scroll的方法之前, 判断this.scroll对象是否有值
         第二: 在mounted生命周期函数中使用this.$refs.scroll, 而不是在created中
 
     问题二. 对于refresh非常频繁的问题, 进行防抖操作
@@ -203,7 +203,12 @@
                 当用户滚到没有达到一定位置时, PlaceHolderTabControl隐藏起来
 
 十. 让Home保持原来的状态
-
+    10.1 让Home不要随意销毁掉
+        keep-alive
+    10.2 让Home中的内容保持原来的位置
+        离开时保存一个位置信息saveY
+        进来时， 将位置设置为原来保存的位置saveY信息即可
+            注意： 最好回来时， 进行一次refresh()
 
 
 

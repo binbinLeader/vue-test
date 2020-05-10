@@ -47,13 +47,14 @@
     methods: {
       // time 的默认值
       scrollTo(x, y, time=300) {
-        this.scroll.scrollTo(x, y, time)
+        this.scroll && this.scroll.scrollTo(x, y, time)
       },
       finishPullUp() {
-        this.scroll.finishPullUp()
+        this.scroll && this.scroll.finishPullUp()
       },
       refresh() {
-        this.scroll.refresh()
+        console.log('refresh执行了')
+        this.scroll && this.scroll.refresh()
       }
 
     }
