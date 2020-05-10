@@ -34,14 +34,18 @@
       })
 
       // 监听滚动的位置
-      this.scroll.on('scroll', (position) => {
-        this.$emit('scroll', position)
-      })
+      if (this.probeType === 2 || this.probeType === 3) {
+        this.scroll.on('scroll', (position) => {
+          this.$emit('scroll', position)
+        })
+      }
 
       // 监听上拉加载更多
-      this.scroll.on('pullingUp', () => {
-        this.$emit('pullingUp')
-      })
+      if (this.pullUpLoad) {
+        this.scroll.on('pullingUp', () => {
+          this.$emit('pullingUp')
+        })
+      }
 
     },
     methods: {
@@ -53,7 +57,6 @@
         this.scroll && this.scroll.finishPullUp()
       },
       refresh() {
-        console.log('refresh执行了')
         this.scroll && this.scroll.refresh()
       }
 

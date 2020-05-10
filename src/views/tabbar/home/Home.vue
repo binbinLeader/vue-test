@@ -1,8 +1,13 @@
 <template>
-  <div id="home">
+  <div id="home" class="wrapper">
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
+
+    <tab-control :titles="['流行','新款','精选']"
+                 @tabClick="tabClick"
+                 ref="tabControl1" v-show="tabControlIsFixed"
+                 class="tab-control"/>
 
     <scroll class="content"
             ref="scroll"
@@ -10,12 +15,14 @@
             @scroll="getScrollPosition"
             :pull-up-load="true"
             @pullingUp="loadMore">
-      <home-swiper :banners="banners"/>
+      <home-swiper :banners="banners"
+                   @homeSwiperImgLoad="homeSwiperImgLoad"/>
       <home-recommend-view :recommends="recommends"/>
       <feature-view/>
       <tab-control class="tab-control"
                    :titles="['流行','新款','精选']"
-                   @tabClick="tabClick"/>
+                   @tabClick="tabClick"
+                   ref="tabControl2" />
       <goods-list :goods="showGoods"/>
     </scroll>
 
@@ -65,6 +72,8 @@
         },
         currentType: 'pop',
         isShowBackTop: false,
+        tabControlOffsetTop: 0,
+        tabControlIsFixed: false
       }
     },
     computed: {
@@ -91,6 +100,10 @@
       })
     },
     methods: {
+      homeSwiperImgLoad() {
+        // 此处我们就可以获取 轮播图的高度，从而设置tabControl的高度
+        this.tabControlOffsetTop = this.$refs.tabControl2.$el.offsetTop
+      },
       tabClick(index) {
         switch (index) {
           case 0:
@@ -103,12 +116,17 @@
             this.currentType = 'sell'
             break
         }
+        this.$refs.tabControl1.currentIndex = index
+        this.$refs.tabControl2.currentIndex = index
       },
       backClick() {
         this.$refs.scroll.scrollTo(0, 0, 500)
       },
       getScrollPosition(position) {
+        // 1. 判断backTop是否提示
         this.isShowBackTop = (- position.y) > 1000
+        // 2. 判断tabControl是否吸顶
+        this.tabControlIsFixed = (-position.y) > this.tabControlOffsetTop
       },
       loadMore() {
         this.getHomeGoods(this.currentType)
@@ -142,27 +160,30 @@
 
 <style scoped>
   #home {
-    padding-top: 44px;
+    /*padding-top: 44px;*/
     height: 100vh;
+    position: relative;
   }
   .home-nav {
     background-color: var(--color-tint);
     color: #fff;
 
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 9;
+    /*这里使用的是原生的滚动*/
+    /*position: fixed;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*top: 0;*/
+    /*z-index: 9;*/
   }
 
   .tab-control {
-    /*position: sticky;*/
-    top: 44px;
+    position: relative;
     z-index: 9;
   }
 
   .content {
+    overflow: hidden;
+
     position: absolute;
     top: 44px;
     bottom: 49px;
