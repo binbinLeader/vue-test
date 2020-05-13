@@ -2,32 +2,43 @@
   <div>
     <detail-nav-bar/>
     <detail-swiper :top-images="topImages"/>
+    <detail-goods-info :detail-info="goods"/>
   </div>
 </template>
 
 <script>
   import DetailNavBar from "./childComps/DetailNavBar";
   import DetailSwiper from "./childComps/DetailSwiper";
+  import DetailGoodsInfo from "./childComps/DetailGoodsInfo";
 
-  import {getDetail} from "network/detail"
+  import {getDetail, Goods} from "network/detail"
 
   export default {
     name: "Detail",
     components: {
       DetailNavBar,
-      DetailSwiper
+      DetailSwiper,
+      DetailGoodsInfo
     },
     data() {
       return {
         id: null,
-        topImages: []
+        topImages: [],
+        goods: {}
       }
     },
     created() {
       this.id = this.$route.params.id
       getDetail(this.id).then(res => {
-        this.topImages = res.result.itemInfo.topImages
+        console.log(res.result);
+        const data = res.result
+        // 1. 轮播图
+        this.topImages = data.itemInfo.topImages
+        // 2. 商品基本信息的展示
+        this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.service)
       })
+
+
     }
   }
 </script>
