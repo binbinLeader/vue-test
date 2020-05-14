@@ -1,9 +1,9 @@
 <template>
-  <nav-bar>
+  <nav-bar class="detail-nav">
     <div slot="left" class="back" @click="goBack">
       <img src="~assets/img/common/back.svg" alt="">
     </div>
-    <div slot="center" class="titles">
+    <div slot="center" class="title">
       <div class="title-item"
            v-for="(item, index) in titles"
            :class="{active: index === currentIndex}" @click="itemClick(index)">
@@ -40,20 +40,26 @@
 </script>
 
 <style scoped>
-  .titles {
+  .detail-nav {
+    background-color: #fff;
+    font-weight: normal;
+  }
+
+  .title {
     display: flex;
-    font-size: 13px;
+    padding: 0 20px;
+    font-size: 14px;
   }
 
   .title-item {
     flex: 1;
   }
 
-  .active {
+  .title-item.active {
     color: var(--color-high-text);
   }
 
-  .back img {
-    margin-top: 12px;
+  .back {
+    margin-top: 8px;
   }
 </style>
