@@ -8,6 +8,7 @@
       <detail-shop-info :shop="shop"/>
       <detail-goods-info :detail-info="goodsDetailInfo"/>
       <detail-goods-params :goods-param-info="goodsParams"/>
+      <detail-comment-info :comment-info="commentInfo"/>
     </scroll>
 
   </div>
@@ -22,6 +23,7 @@
   import DetailShopInfo from "./childComps/DetailShopInfo";
   import DetailGoodsInfo from "./childComps/DetailGoodsInfo";
   import DetailGoodsParams from "./childComps/DetailGoodsParams";
+  import DetailCommentInfo from "./childComps/DetailCommentInfo";
 
   import {
     getDetail,
@@ -40,7 +42,8 @@
       DetailBaseInfo,
       DetailShopInfo,
       DetailGoodsInfo,
-      DetailGoodsParams
+      DetailGoodsParams,
+      DetailCommentInfo
     },
     data() {
       return {
@@ -49,7 +52,8 @@
         goods: {},
         shop: {},
         goodsDetailInfo: {},
-        goodsParams: {}
+        goodsParams: {},
+        commentInfo: {}
       }
     },
     created() {
@@ -67,6 +71,10 @@
         this.goodsDetailInfo = data.detailInfo
         // 5. 商品参数详情展示
         this.goodsParams = new GoodsParams(data.itemParams.info, data.itemParams.rule)
+        // 6. 评论信息的展示
+        if (data.rate.list) {
+          this.commentInfo = data.rate.list[0]
+        }
       })
 
 
