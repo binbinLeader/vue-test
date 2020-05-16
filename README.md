@@ -288,11 +288,11 @@
 	20.1 Vuex的补充
 		Actions可以返回一个Promise
 		mapActions的映射关系
-		
+
 	20.2 Toast(土司)封装
 		普通封装方式
 		插件封装方式
-		
+
 二十一. 补充一些细节
 	21.1 fastClick减少点击延迟
 		安装fastclick
@@ -307,13 +307,21 @@
 			2. 导入
 			3. Vue.use
 			4. 修改img :src -> v-lazy
-			
+
 // 1. 在js中使用正则: /正则相关规则/
 // 2. exclude中存放元素必须是正则表达式
 // 3. 安装排除的文件写对应的正则:
 	正则的规则:
 		1. ^abc: 开头
 		2. abd$: 必须以什么内容结尾
+
+
+响应式原理：
+    1. app.message修改数据： Vue内部是如何监听message数据的改变
+     Object.defineProperty -> 监听对象属性的改变
+
+    2. 当数据发生改变， Vue是如何知道要通知哪些人， 界面发生刷新？
+        发布者订阅者模式
 
 
 

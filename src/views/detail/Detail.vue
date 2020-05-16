@@ -6,6 +6,7 @@
       <detail-swiper :top-images="topImages"/>
       <detail-base-info :goods="goods"/>
       <detail-shop-info :shop="shop"/>
+      <detail-goods-info :detail-info="goodsDetailInfo"/>
     </scroll>
 
   </div>
@@ -18,6 +19,7 @@
   import DetailSwiper from "./childComps/DetailSwiper";
   import DetailBaseInfo from "./childComps/DetailBaseInfo";
   import DetailShopInfo from "./childComps/DetailShopInfo";
+  import DetailGoodsInfo from "./childComps/DetailGoodsInfo";
 
   import {getDetail, Goods, Shop} from "network/detail"
 
@@ -29,14 +31,16 @@
       DetailNavBar,
       DetailSwiper,
       DetailBaseInfo,
-      DetailShopInfo
+      DetailShopInfo,
+      DetailGoodsInfo
     },
     data() {
       return {
         id: null,
         topImages: [],
         goods: {},
-        shop: {}
+        shop: {},
+        goodsDetailInfo: {}
       }
     },
     created() {
@@ -50,7 +54,8 @@
         this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.services)
         // 3. 商品店铺信息
         this.shop = new Shop(data.shopInfo)
-        console.log(this.shop);
+        // 4. 商品图片的展示
+        this.goodsDetailInfo = data.detailInfo
       })
 
 
