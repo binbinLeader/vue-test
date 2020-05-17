@@ -9,6 +9,16 @@ export function getDetail(id) {
   })
 }
 
+/**
+ * 获取推荐列表
+ * @returns {AxiosPromise}
+ */
+export function getRecommendList() {
+  return request({
+    url: '/recommend'
+  })
+}
+
 export class Goods {
   constructor(itemInfo, columns, services) {
     this.title = itemInfo.title;

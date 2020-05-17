@@ -8,7 +8,10 @@
     </div>
     <div class="info-key">{{detailInfo.detailImage[0].key}}</div>
     <div class="info-list">
-      <img v-for="(item, index) in detailInfo.detailImage[0].list" :src="item" alt="">
+      <img v-for="(item, index) in detailInfo.detailImage[0].list"
+           :src="item"
+           alt=""
+           @load="detailInfoImgLoad">
     </div>
   </div>
 </template>
@@ -22,6 +25,13 @@
         default() {
           return {}
         }
+      }
+    },
+    methods: {
+      detailInfoImgLoad() {
+        // 此时图片加载完了
+        // 我们在这里发送一个事件，通知父组件加载完了
+        this.$emit('detailInfoImgLoad')
       }
     }
   }

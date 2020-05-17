@@ -2,13 +2,14 @@
   <div id="detail">
     <detail-nav-bar class="detail-nav"/>
 
-    <scroll class="content">
+    <scroll class="content" ref="scroll" >
       <detail-swiper :top-images="topImages"/>
       <detail-base-info :goods="goods"/>
       <detail-shop-info :shop="shop"/>
-      <detail-goods-info :detail-info="goodsDetailInfo"/>
+      <detail-goods-info :detail-info="goodsDetailInfo" @detailInfoImgLoad="goodsDetailInfoImgLoad"/>
       <detail-goods-params :goods-param-info="goodsParams"/>
       <detail-comment-info :comment-info="commentInfo"/>
+      <detail-recommend-list :recommend-list="recommendList"/>
     </scroll>
 
   </div>
@@ -24,13 +25,17 @@
   import DetailGoodsInfo from "./childComps/DetailGoodsInfo";
   import DetailGoodsParams from "./childComps/DetailGoodsParams";
   import DetailCommentInfo from "./childComps/DetailCommentInfo";
+  import DetailRecommendList from "./childComps/DetailRecommendList";
 
   import {
     getDetail,
     Goods,
     Shop,
-    GoodsParams
+    GoodsParams,
+    getRecommendList
   } from "network/detail"
+  import {itemImgListenerMixin} from "common/mixin";
+  import {debounce} from "../../common/utils";
 
   export default {
     name: "Detail",
@@ -43,7 +48,8 @@
       DetailShopInfo,
       DetailGoodsInfo,
       DetailGoodsParams,
-      DetailCommentInfo
+      DetailCommentInfo,
+      DetailRecommendList
     },
     data() {
       return {
@@ -53,7 +59,8 @@
         shop: {},
         goodsDetailInfo: {},
         goodsParams: {},
-        commentInfo: {}
+        commentInfo: {},
+        recommendList: [],
       }
     },
     created() {
@@ -75,9 +82,31 @@
         if (data.rate.list) {
           this.commentInfo = data.rate.list[0]
         }
+
+        // 7. 商品推荐信息展示
+        getRecommendList().then( (res, error) => {
+          this.recommendList = res.data.list
+        })
       })
 
 
+    },
+    deactivated() {
+      // 在这里取消加载完事件的监听
+      this.$bus.$off('goodsItemImgLoad', this.itemImgLoad)
+    },
+    mixins: [itemImgListenerMixin],
+    mounted() {
+
+    },
+    methods: {
+      goodsDetailInfoImgLoad() {
+        // 此时图片加载完了, 我们进行一次页面刷新
+        // this.$refs.scroll.refresh()
+
+        // 为了防止频繁调用， 我们使用防抖处理
+        this.newRefresh()
+      }
     }
   }
 </script>

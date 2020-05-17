@@ -41,8 +41,7 @@
   import BackTop from "components/content/backTop/BackTop";
 
   import NavBar from "components/common/navbar/NavBar";
-
-  import {debounce} from "common/utils";
+  import {itemImgListenerMixin} from "common/mixin";
 
   import {
     getHomeMulitData,
@@ -74,7 +73,7 @@
         isShowBackTop: false,
         tabControlOffsetTop: 0,
         tabControlIsFixed: false,
-        saveY: 0
+        saveY: 0,
       }
     },
     computed: {
@@ -97,16 +96,15 @@
       this.$refs.scroll.refresh()
     },
     deactivated() {
+      // 1. 保存Y值
       this.saveY = this.$refs.scroll.getScrollY()
+      // 2. 取消全局事件的监听, 这里需要指定一个函数， 不然会取消所有的监听
+      // 所以这里我们可以设置一个data进行监听
+      this.$bus.$off('goodsItemImgLoad', this.homeItemImgLoad)
     },
+    mixins: [itemImgListenerMixin],
     mounted() {
-      // 这里不能写小括号， 因为我们需要传的是一个方法， 如果我们不写小括号， 就是传的一个方法
-      // 如果写了小括号， 传递的就是该方法的返回值了， 如果方法没有返回值， 那么就是undefind了
-      const refresh = debounce(this.$refs.scroll.refresh, 200)
 
-      this.$bus.$on('goodsItemImgLoad', () => {
-        refresh()
-      })
     },
     methods: {
       homeSwiperImgLoad() {
