@@ -6,7 +6,8 @@
     <div slot="center" class="title">
       <div class="title-item"
            v-for="(item, index) in titles"
-           :class="{active: index === currentIndex}" @click="itemClick(index)">
+           :class="{active: index === currentIndex}"
+           @click="itemClick(index)">
         {{item}}
       </div>
     </div>
@@ -30,6 +31,8 @@
     methods: {
       itemClick(index) {
         this.currentIndex = index
+        // 此处我们可以发出一个事件，告诉用户正在点击的是什么
+        this.$emit('titleClick', index)
       },
       goBack() {
         this.$router.go(-1)

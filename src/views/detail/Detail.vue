@@ -1,6 +1,6 @@
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav"/>
+    <detail-nav-bar class="detail-nav" @titleClick="titleClick"/>
 
     <scroll class="content" ref="scroll" >
       <detail-swiper :top-images="topImages"/>
@@ -61,6 +61,7 @@
         goodsParams: {},
         commentInfo: {},
         recommendList: [],
+        themeTopYs: []
       }
     },
     created() {
@@ -106,6 +107,15 @@
 
         // 为了防止频繁调用， 我们使用防抖处理
         this.newRefresh()
+
+        // 在图片加载完了， 我们设置一下高度
+        this.themeTopYs.push(0)
+        this.themeTopYs.push()
+
+      },
+      titleClick(index) {
+        console.log(index);
+        this.$refs.scroll.scrollTo(0, -1000, 200)
       }
     }
   }
