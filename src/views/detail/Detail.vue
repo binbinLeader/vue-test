@@ -1,6 +1,8 @@
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav" @titleClick="titleClick"/>
+    <detail-nav-bar class="detail-nav"
+                    @titleClick="titleClick"
+                    ref="detailNavBar"/>
 
     <scroll class="content"
             ref="scroll"
@@ -65,7 +67,8 @@
         commentInfo: {},
         recommendList: [],
         themeTopYs: [],
-        getThemeTopY: null
+        getThemeTopY: null,
+        currentIndex: 0
       }
     },
     created() {
@@ -101,7 +104,7 @@
           this.themeTopYs.push(this.$refs.params.$el.offsetTop)
           this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
           this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
-          console.log(this.themeTopYs)
+          this.themeTopYs.push(Number.MAX_VALUE)
         }, 100)
       })
 
@@ -132,9 +135,22 @@
       },
       scrollContent(position) {
         // 在这里监听滚动位置
-        // positionY 在 0~ 之间时 0
-        // TODO 写到这里了
-        console.log(position);
+        // positionY 在 0~themeTopYs[0] 之间时 0
+        // positionY 在 themeTopYs[0]~themeTopYs[1] 之间时 1
+        // positionY 在 themeTopYs[1]~themeTopYs[2] 之间时 2
+        // positionY 在 themeTopYs[3]~MAX 之间时 3
+
+        //
+        const positionY = -position.y
+        for (let i = 0; i < this.themeTopYs.length; i++) {
+          if ( (this.currentIndex !== i)
+                  && (positionY >= this.themeTopYs[i] && positionY < this.themeTopYs[i+1])
+          ) {
+
+            this.currentIndex = i
+            this.$refs.detailNavBar.currentIndex = this.currentIndex
+          }
+        }
       }
     }
   }
