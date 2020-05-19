@@ -2,14 +2,17 @@
   <div id="detail">
     <detail-nav-bar class="detail-nav" @titleClick="titleClick"/>
 
-    <scroll class="content" ref="scroll" >
+    <scroll class="content"
+            ref="scroll"
+            :probeType="3"
+            @scroll="scrollContent">
       <detail-swiper :top-images="topImages"/>
       <detail-base-info :goods="goods"/>
       <detail-shop-info :shop="shop"/>
       <detail-goods-info :detail-info="goodsDetailInfo" @detailInfoImgLoad="goodsDetailInfoImgLoad"/>
-      <detail-goods-params :goods-param-info="goodsParams"/>
-      <detail-comment-info :comment-info="commentInfo"/>
-      <detail-recommend-list :recommend-list="recommendList"/>
+      <detail-goods-params :goods-param-info="goodsParams" ref="params"/>
+      <detail-comment-info :comment-info="commentInfo" ref="comment"/>
+      <detail-recommend-list :recommend-list="recommendList" ref="recommend"/>
     </scroll>
 
   </div>
@@ -35,7 +38,7 @@
     getRecommendList
   } from "network/detail"
   import {itemImgListenerMixin} from "common/mixin";
-  import {debounce} from "../../common/utils";
+  import {debounce} from "common/utils";
 
   export default {
     name: "Detail",
@@ -61,7 +64,8 @@
         goodsParams: {},
         commentInfo: {},
         recommendList: [],
-        themeTopYs: []
+        themeTopYs: [],
+        getThemeTopY: null
       }
     },
     created() {
@@ -88,8 +92,18 @@
         getRecommendList().then( (res, error) => {
           this.recommendList = res.data.list
         })
-      })
 
+        // 8. 这里虽然是created, 但是当使用debounce时, 是会访问多次的, 所以可以等到渲染结束了
+        this.getThemeTopY = debounce(() => {
+          // 在图片加载完了， 我们设置一下高度
+          this.themeTopYs = []
+          this.themeTopYs.push(0)
+          this.themeTopYs.push(this.$refs.params.$el.offsetTop)
+          this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
+          this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
+          console.log(this.themeTopYs)
+        }, 100)
+      })
 
     },
     deactivated() {
@@ -108,14 +122,19 @@
         // 为了防止频繁调用， 我们使用防抖处理
         this.newRefresh()
 
-        // 在图片加载完了， 我们设置一下高度
-        this.themeTopYs.push(0)
-        this.themeTopYs.push()
+        // debounce生成了一个新的函数, 我们在这里可以做一个调用
+        this.getThemeTopY()
+
 
       },
       titleClick(index) {
-        console.log(index);
-        this.$refs.scroll.scrollTo(0, -1000, 200)
+        this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 300)
+      },
+      scrollContent(position) {
+        // 在这里监听滚动位置
+        // positionY 在 0~ 之间时 0
+        // TODO 写到这里了
+        console.log(position);
       }
     }
   }

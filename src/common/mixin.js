@@ -17,6 +17,5 @@ export const itemImgListenerMixin = {
       this.newRefresh()
     }
     this.$bus.$on('goodsItemImgLoad', this.itemImgLoad)
-    console.log('我是混入的内容')
   }
 }
