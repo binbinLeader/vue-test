@@ -38,10 +38,9 @@
   import TabControl from "components/content/tabControl/TabControl";
   import GoodsList from "components/content/goods/GoodsList";
   import Scroll from "components/common/scroll/Scroll";
-  import BackTop from "components/content/backTop/BackTop";
 
   import NavBar from "components/common/navbar/NavBar";
-  import {itemImgListenerMixin} from "common/mixin";
+  import {itemImgListenerMixin, backTopMixin} from "common/mixin";
 
   import {
     getHomeMulitData,
@@ -58,8 +57,8 @@
       TabControl,
       GoodsList,
       Scroll,
-      BackTop
     },
+    mixins: [itemImgListenerMixin, backTopMixin],
     data() {
       return {
         banners: [],
@@ -70,7 +69,6 @@
           'sell': {page: 0, list: []},
         },
         currentType: 'pop',
-        isShowBackTop: false,
         tabControlOffsetTop: 0,
         tabControlIsFixed: false,
         saveY: 0,
@@ -102,7 +100,6 @@
       // 所以这里我们可以设置一个data进行监听
       this.$bus.$off('goodsItemImgLoad', this.homeItemImgLoad)
     },
-    mixins: [itemImgListenerMixin],
     mounted() {
 
     },
@@ -126,12 +123,9 @@
         this.$refs.tabControl1.currentIndex = index
         this.$refs.tabControl2.currentIndex = index
       },
-      backClick() {
-        this.$refs.scroll.scrollTo(0, 0, 500)
-      },
       getScrollPosition(position) {
         // 1. 判断backTop是否提示
-        this.isShowBackTop = (- position.y) > 1000
+        this.listenerShowBackTop(position)
         // 2. 判断tabControl是否吸顶
         this.tabControlIsFixed = (-position.y) > this.tabControlOffsetTop
       },

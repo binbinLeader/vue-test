@@ -17,6 +17,9 @@
       <detail-recommend-list :recommend-list="recommendList" ref="recommend"/>
     </scroll>
 
+    <back-top @click.native="backClick" v-show="isShowBackTop" />
+
+    <detail-bottom-bar/>
   </div>
 </template>
 
@@ -31,6 +34,7 @@
   import DetailGoodsParams from "./childComps/DetailGoodsParams";
   import DetailCommentInfo from "./childComps/DetailCommentInfo";
   import DetailRecommendList from "./childComps/DetailRecommendList";
+  import DetailBottomBar from "./childComps/DetailBottomBar";
 
   import {
     getDetail,
@@ -39,7 +43,7 @@
     GoodsParams,
     getRecommendList
   } from "network/detail"
-  import {itemImgListenerMixin} from "common/mixin";
+  import {itemImgListenerMixin, backTopMixin} from "common/mixin";
   import {debounce} from "common/utils";
 
   export default {
@@ -54,8 +58,10 @@
       DetailGoodsInfo,
       DetailGoodsParams,
       DetailCommentInfo,
-      DetailRecommendList
+      DetailRecommendList,
+      DetailBottomBar
     },
+    mixins: [itemImgListenerMixin, backTopMixin],
     data() {
       return {
         id: null,
@@ -113,7 +119,6 @@
       // 在这里取消加载完事件的监听
       this.$bus.$off('goodsItemImgLoad', this.itemImgLoad)
     },
-    mixins: [itemImgListenerMixin],
     mounted() {
 
     },
@@ -127,7 +132,6 @@
 
         // debounce生成了一个新的函数, 我们在这里可以做一个调用
         this.getThemeTopY()
-
 
       },
       titleClick(index) {
@@ -144,13 +148,13 @@
         const positionY = -position.y
         for (let i = 0; i < this.themeTopYs.length; i++) {
           if ( (this.currentIndex !== i)
-                  && (positionY >= this.themeTopYs[i] && positionY < this.themeTopYs[i+1])
-          ) {
-
+                  && (positionY >= this.themeTopYs[i] && positionY < this.themeTopYs[i+1]) ) {
             this.currentIndex = i
             this.$refs.detailNavBar.currentIndex = this.currentIndex
           }
         }
+
+        this.listenerShowBackTop(position)
       }
     }
   }
