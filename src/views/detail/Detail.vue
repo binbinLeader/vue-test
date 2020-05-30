@@ -155,6 +155,7 @@
         }
 
         this.listenerShowBackTop(position)
+        // console.log(this.isShowBackTop)
       },
       addCart() {
         // 1. 获取购物车需要展示的信息

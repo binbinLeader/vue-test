@@ -90,12 +90,14 @@
     },
     activated() {
       this.$refs.scroll.scrollTo(0, this.saveY, 0)
+      console.log('activeted ==>', this.saveY)
       // 在这里可能不能滚，需要刷新一下
       this.$refs.scroll.refresh()
     },
     deactivated() {
       // 1. 保存Y值
       this.saveY = this.$refs.scroll.getScrollY()
+      console.log('deactiveted ==>', this.saveY)
       // 2. 取消全局事件的监听, 这里需要指定一个函数， 不然会取消所有的监听
       // 所以这里我们可以设置一个data进行监听
       this.$bus.$off('goodsItemImgLoad', this.homeItemImgLoad)
