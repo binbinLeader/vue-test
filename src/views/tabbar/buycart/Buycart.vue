@@ -7,12 +7,14 @@
     <!--商品列表-->
     <cart-list />
 
+    <cart-bottom-bar/>
   </div>
 </template>
 
 <script>
   import NavBar from "components/common/navbar/NavBar";
   import CartList from "./childcomps/CartList";
+  import CartBottomBar from "./childcomps/CartBottomBar";
 
   import { mapGetters } from 'vuex'
 
@@ -20,7 +22,8 @@
     name: "Buycart",
     components: {
       NavBar,
-      CartList
+      CartList,
+      CartBottomBar
     },
     computed: {
       // goodsLength() {

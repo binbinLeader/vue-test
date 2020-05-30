@@ -165,6 +165,7 @@
         product.desc = this.goods.desc;
         product.price = this.goods.nowPrice;
         product.id = this.id;
+        product.checked = false
 
         // 2. 将商品添加到购物车里
         this.$store.dispatch('addCart', product);
