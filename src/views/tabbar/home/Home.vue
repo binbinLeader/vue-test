@@ -70,6 +70,10 @@
         },
         currentType: 'pop',
         tabControlOffsetTop: 0,
+        popOffsetTop: 0,
+        newOffsetTop: 0,
+        sellOffsetTop: 0,
+        scrollPosition: 0,
         tabControlIsFixed: false,
         saveY: 0,
       }
@@ -89,15 +93,13 @@
       this.getHomeGoods('sell')
     },
     activated() {
-      this.$refs.scroll.scrollTo(0, this.saveY, 0)
-      console.log('activeted ==>', this.saveY)
-      // 在这里可能不能滚，需要刷新一下
       this.$refs.scroll.refresh()
+
+      this.$refs.scroll.scrollTo(0, this.saveY, 0)
     },
     deactivated() {
       // 1. 保存Y值
       this.saveY = this.$refs.scroll.getScrollY()
-      console.log('deactiveted ==>', this.saveY)
       // 2. 取消全局事件的监听, 这里需要指定一个函数， 不然会取消所有的监听
       // 所以这里我们可以设置一个data进行监听
       this.$bus.$off('goodsItemImgLoad', this.homeItemImgLoad)
@@ -109,23 +111,41 @@
       homeSwiperImgLoad() {
         // 此处我们就可以获取 轮播图的高度，从而设置tabControl的高度
         this.tabControlOffsetTop = this.$refs.tabControl2.$el.offsetTop
+
+        this.popOffsetTop = this.tabControlOffsetTop
+        this.newOffsetTop = this.tabControlOffsetTop
+        this.sellOffsetTop = this.tabControlOffsetTop
       },
       tabClick(index) {
+        // if (this.currentType === 'pop' | this.popOffsetTop === this.tabControlOffsetTop) {
+        //   this.popOffsetTop = this.scrollPosition
+        // } else if (this.currentType === 'new' && this.newOffsetTop === this.tabControlOffsetTop) {
+        //   this.newOffsetTop = this.scrollPosition
+        // } else if (this.currentType === 'sell' && this.sellOffsetTop === this.tabControlOffsetTop) {
+        //   this.sellOffsetTop = this.scrollPosition
+        // }
+        console.log('pop:',this.popOffsetTop,' new:', this.newOffsetTop, ' sell:', this.sellOffsetTop)
         switch (index) {
           case 0:
             this.currentType = 'pop'
+            this.$refs.scroll.scrollTo(0, -this.popOffsetTop, 0)
             break
           case 1:
             this.currentType = 'new'
+            this.$refs.scroll.scrollTo(0, -this.newOffsetTop, 0)
             break
           case 2:
             this.currentType = 'sell'
+            this.$refs.scroll.scrollTo(0, -this.sellOffsetTop, 0)
             break
         }
         this.$refs.tabControl1.currentIndex = index
         this.$refs.tabControl2.currentIndex = index
+
+
       },
       getScrollPosition(position) {
+        this.scrollPosition = -position.y
         // 1. 判断backTop是否提示
         this.listenerShowBackTop(position)
         // 2. 判断tabControl是否吸顶
