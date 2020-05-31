@@ -45,6 +45,7 @@
   } from "network/detail"
   import {itemImgListenerMixin, backTopMixin} from "common/mixin";
   import {debounce} from "common/utils";
+  import { mapActions } from 'vuex'
 
   export default {
     name: "Detail",
@@ -123,6 +124,9 @@
 
     },
     methods: {
+      ...mapActions({
+        addToCart: 'addCart',
+      }),
       goodsDetailInfoImgLoad() {
         // 此时图片加载完了, 我们进行一次页面刷新
         // this.$refs.scroll.refresh()
@@ -168,7 +172,12 @@
         product.checked = false
 
         // 2. 将商品添加到购物车里
-        this.$store.dispatch('addCart', product);
+        this.addToCart(product).then(res => {
+          this.$toast.show(res)
+        })
+        // this.$store.dispatch('addCart', product).then(res => {
+        //   console.log(res);
+        // })
 
       }
     }
